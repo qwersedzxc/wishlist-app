@@ -1,0 +1,27 @@
+# Environment files
+.env
+
+# Uploads
+public/uploads/*
+!public/uploads/.htaccess
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.sql.backup
+
+# Temporary files
+test_*.php
+add_*.php
+load_*.php
