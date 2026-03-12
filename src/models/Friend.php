@@ -8,9 +8,9 @@ class Friend {
         $this->db = Database::getInstance()->getConnection();
     }
 
-    // Отправить запрос в друзья
+    // отправить запрос в друзья
     public function sendRequest($sender_id, $receiver_id) {
-        // Проверяем, не отправлен ли уже запрос
+        //  не отправлен ли уже запрос
         $sql = "SELECT * FROM friend_requests WHERE 
                 (sender_id = ? AND receiver_id = ?) OR 
                 (sender_id = ? AND receiver_id = ?)";
@@ -18,7 +18,7 @@ class Friend {
         $stmt->execute([$sender_id, $receiver_id, $receiver_id, $sender_id]);
         
         if ($stmt->fetch()) {
-            return false; // Запрос уже существует
+            return false; // запрос уже существует
         }
         
         $sql = "INSERT INTO friend_requests (sender_id, receiver_id, status) VALUES (?, ?, 'pending')";
@@ -26,7 +26,7 @@ class Friend {
         return $stmt->execute([$sender_id, $receiver_id]);
     }
 
-    // Принять запрос в друзья
+    // принять запрос 
     public function acceptRequest($request_id, $user_id) {
         $sql = "UPDATE friend_requests SET status = 'accepted', updated_at = CURRENT_TIMESTAMP 
                 WHERE id = ? AND receiver_id = ? AND status = 'pending'";
@@ -34,7 +34,7 @@ class Friend {
         return $stmt->execute([$request_id, $user_id]);
     }
 
-    // Отклонить запрос в друзья
+    // отклонить запрос 
     public function rejectRequest($request_id, $user_id) {
         $sql = "UPDATE friend_requests SET status = 'rejected', updated_at = CURRENT_TIMESTAMP 
                 WHERE id = ? AND receiver_id = ? AND status = 'pending'";
@@ -42,7 +42,7 @@ class Friend {
         return $stmt->execute([$request_id, $user_id]);
     }
 
-    // Удалить из друзей
+    // удалить из друзей
     public function removeFriend($user_id, $friend_id) {
         $sql = "DELETE FROM friend_requests WHERE 
                 ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) 
@@ -51,7 +51,7 @@ class Friend {
         return $stmt->execute([$user_id, $friend_id, $friend_id, $user_id]);
     }
 
-    // Получить список друзей
+    // получить список друзей
     public function getFriends($user_id) {
         $sql = "SELECT u.id, u.username, u.full_name, u.avatar, fr.created_at as friends_since
                 FROM friend_requests fr
@@ -69,7 +69,7 @@ class Friend {
         return $stmt->fetchAll();
     }
 
-    // Получить входящие запросы
+    // получить входящие запросы
     public function getIncomingRequests($user_id) {
         $sql = "SELECT fr.id, fr.sender_id, fr.created_at, u.username, u.full_name, u.avatar
                 FROM friend_requests fr
@@ -81,7 +81,7 @@ class Friend {
         return $stmt->fetchAll();
     }
 
-    // Получить исходящие запросы
+    // получить исходящие запросы
     public function getOutgoingRequests($user_id) {
         $sql = "SELECT fr.id, fr.receiver_id, fr.created_at, u.username, u.full_name, u.avatar
                 FROM friend_requests fr
@@ -93,7 +93,7 @@ class Friend {
         return $stmt->fetchAll();
     }
 
-    // Проверить, являются ли пользователи друзьями
+    //  являются ли пользователи друзьями
     public function areFriends($user_id, $friend_id) {
         $sql = "SELECT COUNT(*) FROM friend_requests 
                 WHERE ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?))
@@ -103,7 +103,7 @@ class Friend {
         return $stmt->fetchColumn() > 0;
     }
 
-    // Получить статус дружбы
+    //  статус дружбы
     public function getFriendshipStatus($user_id, $other_user_id) {
         $sql = "SELECT status, sender_id, receiver_id, id FROM friend_requests 
                 WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)";

@@ -25,11 +25,11 @@
 - **Database**: PostgreSQL 15
 - **Web Server**: Apache 2.4
 - **Containerization**: Docker & Docker Compose
-- **Frontend**: Vanilla JavaScript, CSS
 
 
 
-## Быстрый старт
+
+##  старт
 
 ### 1. Клонирование репозитория
 
@@ -106,30 +106,7 @@ docker-compose exec postgres psql -U postgres -d wishlist_service -f /docker-ent
 
 
 
-### Основные команды Docker
 
-```bash
-# Запуск контейнеров
-docker-compose up -d
-
-# Остановка контейнеров
-docker-compose down
-
-# Перезапуск контейнеров
-docker-compose restart
-
-# Просмотр логов
-docker-compose logs -f
-
-# Просмотр логов конкретного сервиса
-docker-compose logs -f app
-
-# Пересборка контейнеров
-docker-compose up -d --build
-
-# Остановка и удаление всех данных
-docker-compose down -v
-```
 
 ### Доступ к контейнерам
 
@@ -141,49 +118,6 @@ docker-compose exec app bash
 docker-compose exec postgres psql -U postgres -d wishlist_service
 ```
 
-## Локальная разработка (без Docker)
-
-### Требования
-
-- PHP 8.2+
-- PostgreSQL 15+
-- Apache/Nginx
-- Composer (опционально)
-
-### Установка
-
-1. Установите зависимости PHP:
-```bash
-# Убедитесь, что установлены расширения
-php -m | grep pdo_pgsql
-```
-
-2. Создайте базу данных:
-```bash
-createdb wishlist_service
-```
-
-3. Выполните миграции:
-```bash
-psql -U postgres -d wishlist_service -f migrations/001_initial_schema.sql
-psql -U postgres -d wishlist_service -f migrations/002_add_cover_image.sql
-psql -U postgres -d wishlist_service -f migrations/003_add_friends_system.sql
-psql -U postgres -d wishlist_service -f migrations/004_seed_data.sql
-```
-
-4. Настройте конфигурацию в `config/db.php`
-
-5. Запустите встроенный сервер PHP:
-```bash
-php -S localhost:8000 -t public
-```
-
-## API Endpoints
-
-### Аутентификация
-
-- `POST /api.php?action=register` - Регистрация
-- `POST /api.php?action=login` - Вход
 
 ### Вишлисты
 
@@ -222,34 +156,15 @@ php -S localhost:8000 -t public
 
 
 
-# Проблемы с подключением к БД
 
-```bash
-# Проверьте статус контейнера PostgreSQL
-docker-compose ps postgres
-
-# Проверьте логи
-docker-compose logs postgres
-
-# Перезапустите контейнер
-docker-compose restart postgres
-```
-
-# Проблемы с правами доступа к uploads
-
-```bash
-# Установите правильные права
-docker-compose exec app chown -R www-data:www-data /var/www/html/public/uploads
-docker-compose exec app chmod -R 777 /var/www/html/public/uploads
-```
 
 # Очистка и пересоздание БД
 
 ```bash
-# Остановите контейнеры и удалите volumes
+
 docker-compose down -v
 
-# Запустите заново
+
 docker-compose up -d
 ```
 

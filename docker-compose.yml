@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
+  # PostgreSQL 
   postgres:
     image: postgres:15-alpine
     container_name: wishlist_postgres
@@ -23,7 +23,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # PHP Application
+  # PHP 
   app:
     build:
       context: .
@@ -47,7 +47,7 @@ services:
     networks:
       - wishlist_network
 
-  # Adminer (Database Management Tool)
+  # adminer 
   adminer:
     image: adminer:latest
     container_name: wishlist_adminer

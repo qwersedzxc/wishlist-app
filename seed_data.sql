@@ -1,18 +1,18 @@
--- Тестовые данные для wishlist_service
+-- тестовые данные для wishlist_service
 
--- Добавляем тестовых пользователей (пароль для всех: password123)
+--  тестовые пользователи (пароль для всех: password123)
 INSERT INTO users (username, email, password_hash, full_name) VALUES
 ('ivan_petrov', 'ivan@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Иван Петров'),
 ('maria_ivanova', 'maria@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Мария Иванова'),
 ('alex_smirnov', 'alex@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Александр Смирнов');
 
--- Добавляем вишлисты
+-- вишлисты
 INSERT INTO wishlists (user_id, title, description, event_type, event_date, is_public) VALUES
 (1, 'Мой день рождения 2024', 'Буду рад любому подарку из списка!', 'birthday', '2024-06-15', TRUE),
 (2, 'Новый год 2025', 'Подарки к Новому году для всей семьи', 'new_year', '2024-12-31', TRUE),
 (3, 'Свадьба', 'Список подарков к нашей свадьбе', 'wedding', '2024-08-20', TRUE);
 
--- Добавляем подарки в вишлисты
+--  подарки в вишлисты
 INSERT INTO wishlist_items (wishlist_id, title, description, url, price, priority) VALUES
 (1, 'Беспроводные наушники', 'Sony WH-1000XM5 с шумоподавлением', 'https://example.com/headphones', 25000.00, 'high'),
 (1, 'Книга "Мастер и Маргарита"', 'Коллекционное издание', 'https://example.com/book', 1500.00, 'medium'),
@@ -27,7 +27,7 @@ INSERT INTO wishlist_items (wishlist_id, title, description, url, price, priorit
 (3, 'Постельное белье', 'Премиум сатин', 'https://example.com/bedding', 5000.00, 'medium'),
 (3, 'Мультиварка', 'Redmond с большой чашей', 'https://example.com/multicooker', 7000.00, 'medium');
 
--- Добавляем идеи подарков с правильной кодировкой UTF-8
+-- идеи подарков с правильной кодировкой 
 INSERT INTO gift_ideas (title, description, category, price_range, url) VALUES
 ('Умные часы', 'Фитнес-трекер с множеством функций для здоровья', 'Электроника', '5000-20000 ₽', 'https://example.com/smartwatch'),
 ('Сертификат в SPA', 'Расслабляющие процедуры и массаж', 'Услуги', '3000-10000 ₽', 'https://example.com/spa'),
@@ -40,6 +40,6 @@ INSERT INTO gift_ideas (title, description, category, price_range, url) VALUES
 ('Книга рецептов', 'Кулинарная книга с авторскими рецептами', 'Книги', '800-2000 ₽', 'https://example.com/cookbook'),
 ('Игровая мышь', 'Эргономичная мышь для геймеров', 'Электроника', '2000-6000 ₽', 'https://example.com/mouse');
 
--- Резервируем несколько подарков
+
 UPDATE wishlist_items SET is_reserved = TRUE, reserved_by = 2 WHERE id = 1;
 UPDATE wishlist_items SET is_reserved = TRUE, reserved_by = 3 WHERE id = 5;

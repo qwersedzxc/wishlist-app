@@ -1,4 +1,4 @@
-// Вспомогательные функции для работы с API
+
 
 async function apiCall(action, data = {}) {
     const formData = new FormData();
@@ -20,13 +20,13 @@ async function apiCall(action, data = {}) {
     }
 }
 
-// Утилиты для работы с датами
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('ru-RU');
 }
 
-// Валидация форм
+// валидация форм
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
@@ -36,7 +36,7 @@ function validatePassword(password) {
     return password.length >= 6;
 }
 
-// Уведомления
+// уведомления
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -62,7 +62,7 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Анимации
+// анимации
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {

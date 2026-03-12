@@ -1,11 +1,11 @@
 <?php
-// Подключение к PostgreSQL с поддержкой переменных окружения
+
 
 function getDbConnection() {
     static $pdo = null;
     
     if ($pdo === null) {
-        // Получаем параметры из переменных окружения или используем значения по умолчанию
+       
         $host = getenv('DB_HOST') ?: 'localhost';
         $port = getenv('DB_PORT') ?: '5432';
         $dbname = getenv('DB_NAME') ?: 'wishlist_service';
@@ -23,7 +23,7 @@ function getDbConnection() {
                     PDO::ATTR_EMULATE_PREPARES => false
                 ]
             );
-            // Установка кодировки UTF-8 для PostgreSQL
+            
             $pdo->exec("SET client_encoding = 'UTF8'");
         } catch (PDOException $e) {
             die("Ошибка подключения к базе данных: " . $e->getMessage());

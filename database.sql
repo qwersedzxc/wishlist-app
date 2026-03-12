@@ -26,10 +26,10 @@ CREATE TABLE wishlists (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Тип для приоритета
+-- тип для приоритета
 CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high');
 
--- Таблица подарков в вишлистах
+-- таблица подарков в вишлистах
 CREATE TABLE wishlist_items (
     id SERIAL PRIMARY KEY,
     wishlist_id INTEGER NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE wishlist_items (
     FOREIGN KEY (reserved_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- Таблица идей подарков (рекомендации)
+-- таблица идей подарков (рекомендации)
 CREATE TABLE gift_ideas (
     id SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE gift_ideas (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Таблица подписок (следование за пользователями)
+-- таблица подписок (следование за пользователями)
 CREATE TABLE follows (
     follower_id INTEGER NOT NULL,
     following_id INTEGER NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE follows (
     FOREIGN KEY (following_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Индексы для оптимизации
+-- индексы для оптимизации
 CREATE INDEX idx_wishlists_user ON wishlists(user_id);
 CREATE INDEX idx_wishlists_public ON wishlists(is_public);
 CREATE INDEX idx_items_wishlist ON wishlist_items(wishlist_id);

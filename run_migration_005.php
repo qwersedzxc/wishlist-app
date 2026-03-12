@@ -1,5 +1,5 @@
 <?php
-// Run migration 005
+
 
 try {
     $pdo = new PDO('pgsql:host=localhost;port=5432;dbname=wishlist_service', 'postgres', '4321');

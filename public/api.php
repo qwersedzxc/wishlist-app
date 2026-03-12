@@ -16,13 +16,13 @@ try {
         case 'register':
             $userModel = new User();
             
-            // Проверка обязательных полей
+            // проверка обязательных полей
             if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
                 echo json_encode(['success' => false, 'error' => 'Заполните все обязательные поля']);
                 break;
             }
             
-            // Проверка длины пароля
+            // проверка длины пароля
             if (strlen($_POST['password']) < 6) {
                 echo json_encode(['success' => false, 'error' => 'Пароль должен быть не менее 6 символов']);
                 break;
@@ -74,7 +74,7 @@ try {
             
             $cover_image = null;
             
-            // Обработка загрузки изображения
+            // обработка загрузки изображения
             if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
                 $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                 $filename = $_FILES['cover_image']['name'];
@@ -216,7 +216,7 @@ try {
                 break;
             }
             
-            // Проверяем, что вишлист принадлежит пользователю
+           
             $wishlistModel = new Wishlist();
             $wishlist = $wishlistModel->getById($wishlist_id);
             
@@ -225,7 +225,7 @@ try {
                 break;
             }
             
-            // Отправляем уведомления друзьям
+          
             $notificationModel = new Notification();
             $userModel = new User();
             $sender = $userModel->getById($_SESSION['user_id']);

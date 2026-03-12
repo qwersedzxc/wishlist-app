@@ -1,8 +1,5 @@
 <?php
-/**
- * Health Check Script
- * Проверяет готовность приложения к работе
- */
+
 
 header('Content-Type: application/json');
 
@@ -15,26 +12,26 @@ $checks = [
 
 $errors = [];
 
-// Проверка версии PHP
+// версия PHP
 if (version_compare(PHP_VERSION, '8.0.0', '>=')) {
     $checks['php_version'] = true;
 } else {
     $errors[] = 'PHP version must be 8.0 or higher. Current: ' . PHP_VERSION;
 }
 
-// Проверка расширения PDO PostgreSQL
+// проверка расширения PDO PostgreSQL
 if (extension_loaded('pdo_pgsql')) {
     $checks['pdo_pgsql'] = true;
 } else {
     $errors[] = 'PDO PostgreSQL extension is not loaded';
 }
 
-// Проверка подключения к базе данных
+// проверка подключения к базе данных
 try {
     require_once __DIR__ . '/config/db.php';
     $db = Database::getInstance()->getConnection();
     
-    // Проверка наличия таблиц
+    
     $stmt = $db->query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public'");
     $tableCount = $stmt->fetchColumn();
     
@@ -47,7 +44,7 @@ try {
     $errors[] = 'Database connection failed: ' . $e->getMessage();
 }
 
-// Проверка директории uploads
+// проверка директории uploads
 $uploadsDir = __DIR__ . '/public/uploads';
 if (is_dir($uploadsDir) && is_writable($uploadsDir)) {
     $checks['uploads_dir'] = true;
@@ -55,7 +52,7 @@ if (is_dir($uploadsDir) && is_writable($uploadsDir)) {
     $errors[] = 'Uploads directory is not writable: ' . $uploadsDir;
 }
 
-// Результат
+
 $allChecks = array_reduce($checks, function($carry, $item) {
     return $carry && $item;
 }, true);

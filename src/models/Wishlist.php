@@ -44,7 +44,7 @@ class Wishlist {
             return $this->getByUserId($user_id);
         }
         
-        // Проверяем, являются ли пользователи друзьями
+        //  являются ли пользователи друзьями
         $areFriends = false;
         if ($viewer_id) {
             require_once __DIR__ . '/Friend.php';
@@ -52,7 +52,7 @@ class Wishlist {
             $areFriends = $friendModel->areFriends($user_id, $viewer_id);
         }
         
-        // Формируем запрос в зависимости от статуса дружбы
+        // запрос в зависимости от статуса дружбы
         if ($areFriends) {
             $sql = "SELECT * FROM wishlists WHERE user_id = ? AND privacy IN ('public', 'friends') ORDER BY created_at DESC";
         } else {
@@ -117,16 +117,16 @@ class Wishlist {
         $wishlist = $this->getById($wishlist_id);
         if (!$wishlist) return false;
         
-        // Владелец всегда имеет доступ
+       
         if ($wishlist['user_id'] == $user_id) return true;
         
-        // Публичный вишлист
+        
         if ($wishlist['privacy'] == 'public') return true;
         
-        // Доступ по ссылке (проверяется отдельно через токен)
+       
         if ($wishlist['privacy'] == 'link') return false;
         
-        // Доступ только для друзей
+        // доступ только для друзей
         if ($wishlist['privacy'] == 'friends' && $user_id) {
             require_once __DIR__ . '/Friend.php';
             $friendModel = new Friend();
@@ -137,7 +137,7 @@ class Wishlist {
     }
 
     public function update($id, $title, $description, $event_type, $event_date, $privacy, $cover_image = null) {
-        // Генерируем токен если privacy = 'link' и токена еще нет
+        //  токен 
         $wishlist = $this->getById($id);
         $share_token = $wishlist['share_token'];
         

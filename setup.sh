@@ -10,7 +10,7 @@ echo "Wishlist Service Setup"
 echo "================================"
 echo ""
 
-# Проверка Docker
+
 if ! command -v docker &> /dev/null; then
     echo "❌ Docker не установлен. Установите Docker Desktop:"
     echo "   https://www.docker.com/products/docker-desktop"
@@ -26,15 +26,14 @@ echo "✓ Docker установлен"
 echo "✓ Docker Compose установлен"
 echo ""
 
-# Создание .env файла
 if [ ! -f .env ]; then
     echo "📝 Создание .env файла..."
     cp .env.example .env
     
-    # Генерация случайного пароля
+   
     RANDOM_PASS=$(openssl rand -base64 12 2>/dev/null || echo "change_this_password")
     
-    # Замена пароля в .env (работает на Linux и macOS)
+   
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' "s/your_secure_password_here/$RANDOM_PASS/" .env
     else
